@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Nynette 💕</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+    font-family:'Georgia',serif;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.carta{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    width:85%;
+    max-width:600px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    text-align:center;
+    line-height:1.8;
+    position:relative;
+    z-index:2;
+}
+
+.rojo{color:#ff4d6d;}
+.azul{color:#3a86ff;}
+.morado{color:#8338ec;}
+.verde{color:#06d6a0;}
+.naranja{color:#ff8800;}
+
+.contador{
+    margin-top:20px;
+    font-weight:bold;
+    font-size:1.1em;
+    padding:15px;
+    background:#ffe6f0;
+    border-radius:15px;
+}
+
+.mensaje{
+    position:fixed;
+    top:20%;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    padding:20px 30px;
+    border-radius:20px;
+    font-size:1.3em;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    opacity:0;
+    transition:0.5s;
+    z-index:5;
+}
+
+.corazon{
+    position:absolute;
+    font-size:20px;
+    pointer-events:none;
+    animation:explotar 1s ease-out forwards;
+}
+
+@keyframes explotar{
+    0%{transform:scale(1) translate(0,0);opacity:1;}
+    100%{transform:scale(2) translate(var(--x),var(--y));opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="carta">
+    <h1 class="morado">Para Nynette 💕</h1>
+
+    <p>
+        <span class="azul">Desde que llegaste a mi vida,</span>
+        <span class="azul">todo se volvió más brillante,</span>
+        <span class="azul">más tranquilo,</span>
+        <span class="azul">más especial.</span>
+        <span class="azul">Gorda te amo mucho por eso me tarde en responderte perdoname amor.</span>
+    </p>
+
+    <p class="morado">
+        Gracias por cada momento, cada sonrisa y cada recuerdo que hemos creado juntos.
+        la proxima sera la carta para la boda amor mio, besos gorda golosa 
+    </p>
+
+    <div class="contador">
+        Llevamos juntos:<br>
+        <span id="tiempo"></span>
+    </div>
+
+    <p class="rojo" style="margin-top:15px;">
+        (Haz clic en la pantalla ❤️)
+    </p>
+</div>
+
+<div class="mensaje" id="mensaje">
+    Te amo gorda golosa ❤️ 
+</div>
+
+<script>
+// CONTADOR
+const fechaInicio = new Date("2020-07-15T00:00:00");
+
+function actualizarContador(){
+    const ahora = new Date();
+    const diff = ahora - fechaInicio;
+
+    const dias = Math.floor(diff/(1000*60*60*24));
+    const horas = Math.floor((diff/(1000*60*60))%24);
+    const minutos = Math.floor((diff/(1000*60))%60);
+    const segundos = Math.floor((diff/1000)%60);
+
+    document.getElementById("tiempo").innerHTML =
+        dias+" días, "+
+        horas+" horas, "+
+        minutos+" minutos y "+
+        segundos+" segundos ❤️";
+}
+
+setInterval(actualizarContador,1000);
+actualizarContador();
+
+// CORAZONES + MENSAJE
+document.addEventListener("click",function(e){
+
+    const mensaje=document.getElementById("mensaje");
+    mensaje.style.opacity="1";
+
+    setTimeout(()=>{
+        mensaje.style.opacity="0";
+    },1500);
+
+    for(let i=0;i<15;i++){
+        const corazon=document.createElement("div");
+        corazon.classList.add("corazon");
+        corazon.innerHTML="❤️";
+
+        const x=(Math.random()-0.5)*250+"px";
+        const y=(Math.random()-0.5)*250+"px";
+
+        corazon.style.left=e.clientX+"px";
+        corazon.style.top=e.clientY+"px";
+        corazon.style.setProperty("--x",x);
+        corazon.style.setProperty("--y",y);
+
+        document.body.appendChild(corazon);
+
+        setTimeout(()=>{corazon.remove();},1000);
+    }
+});
+</script>
+
+</body>
+</html>
